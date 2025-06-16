@@ -43,7 +43,7 @@ class CategoryController extends Controller
             'user_id' => Auth::id(),
         ]);
 
-        return back();
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -69,7 +69,7 @@ class CategoryController extends Controller
 
         $category->update(['name' => $request->name]);
 
-        return back();
+        return redirect()->route('categories.index');
     }
 
     /**
@@ -81,6 +81,6 @@ class CategoryController extends Controller
 
         $category->delete();
 
-        return back();
+        return redirect()->route('categories.index');
     }
 }

@@ -17,7 +17,7 @@ class TransactionController extends Controller
     public function index(): View
     {
         return view('transactions.index', [
-            'transactions' => Auth::user()->transactions,
+            'transactions' => Auth::user()->transactions->load('category'),
         ]);
     }
 
@@ -44,11 +44,12 @@ class TransactionController extends Controller
         Transaction::create([
             'description' => $request->description,
             'amount' => $request->amount,
-            'category_id' => $request->category_id,
             'date' => $request->date,
+            'category_id' => $request->category_id,
+            'user_id' => Auth::id(),
         ]);
 
-        return back();
+        return redirect()->route('transactions.index');
     }
 
     /**
@@ -80,7 +81,7 @@ class TransactionController extends Controller
             'date' => $request->date,
         ]);
 
-        return back();
+        return redirect()->route('transactions.index');
     }
 
     /**
@@ -92,6 +93,6 @@ class TransactionController extends Controller
 
         $transaction->delete();
 
-        return back();
+        return redirect()->route('transactions.index');
     }
 }

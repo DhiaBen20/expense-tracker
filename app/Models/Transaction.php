@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Transaction extends Model
 {
+    public $timestamps = false;
+
     protected $fillable = [
         'description',
         'amount',
@@ -15,15 +17,17 @@ class Transaction extends Model
         'date',
     ];
 
+    protected $casts = ['date' => 'date'];
+
     /** @return BelongsTo<User, $this> */
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
     }
 
-    /** @return BelongsTo<User, $this> */
+    /** @return BelongsTo<Category, $this> */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Category::class);
     }
 }
