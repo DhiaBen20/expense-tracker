@@ -1,3 +1,10 @@
+@use('App\Models\Category')
+@use('Illuminate\Support\Facades\Auth')
+
+@php
+$categories = Category::select("id", "name")->where("user_id", Auth::id())->get();
+@endphp
+
 <x-layouts.app :title="__('Create Transactions')">
     <flux:heading size="xl" level="1">Create Transaction</flux:heading>
     <flux:text class="mt-2 mb-6 text-base">
@@ -12,7 +19,7 @@
         <flux:field>
             <flux:label>Category</flux:label>
             <flux:select name="category_id" placeholder="Choose category">
-                @foreach (\App\Models\Category::all() as $category)
+                @foreach ($categories as $category)
                     <flux:select.option
                         :value="$category->id"
                         :selected="old('category_id') == $category->id"

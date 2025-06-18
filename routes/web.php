@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\DashbaordController;
 use App\Http\Controllers\TransactionController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
@@ -11,7 +12,7 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
+Route::get('dashboard', DashbaordController::class)
     ->middleware(['auth', 'verified'])
     ->name('dashboard');
 

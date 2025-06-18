@@ -1,18 +1,46 @@
 <x-layouts.app :title="__('Dashboard')">
-    <div class="flex h-full w-full flex-1 flex-col gap-4 rounded-xl">
-        <div class="grid auto-rows-min gap-4 md:grid-cols-3">
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-            <div class="relative aspect-video overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-                <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-            </div>
-        </div>
-        <div class="relative h-full flex-1 overflow-hidden rounded-xl border border-neutral-200 dark:border-neutral-700">
-            <x-placeholder-pattern class="absolute inset-0 size-full stroke-gray-900/20 dark:stroke-neutral-100/20" />
-        </div>
+    <x-dashboard-summary :$summary />
+
+    <div class="mt-8">
+        <h2 class="mb-3 font-bold text-xl">Recent Incomes</h2>
+
+        @if (count($incomes) === 0)
+        <p class="text-zinc-400">No incomes created this month yet.</p>
+        @else
+            <x-stacked-list>
+                @foreach ($incomes as $transaction)
+                    <x-stacked-list-item class="flex justify-between items-center gap-4">
+                        <div class="space-x-2">
+                            <span class="text-zinc-300">{{ $transaction->date->toFormattedDateString() }}</span>
+                            <span>-</span>
+                            <span>{{ $transaction->description }}</span>
+                        </div>
+                        <div class="font-bold">{{ Number::currency($transaction->amount, in:"usd") }}</div>
+                    </x-stacked-list-item>
+                @endforeach
+            </x-stacked-list>
+        @endif
+
+    </div>
+
+    <div class="mt-8">
+        <h2 class="mb-3 font-bold text-xl">Recent Expenses</h2>
+        @if (count($expenses) === 0)
+        <p class="text-zinc-400">No expenses created this month yet.</p>
+        @else
+            <x-stacked-list>
+                @foreach ($expenses as $transaction)
+                    <x-stacked-list-item class="flex justify-between items-center gap-4">
+                        <div class="space-x-2">
+                            <span class="text-zinc-300">{{ $transaction->date->toFormattedDateString() }}</span>
+                            <span>-</span>
+                            <span>{{ $transaction->description }}</span>
+                        </div>
+                        <div class="font-bold">{{ Number::currency($transaction->amount, in:"usd") }}</div>
+                    </x-stacked-list-item>
+                @endforeach
+            </x-stacked-list>
+        @endif
+
     </div>
 </x-layouts.app>

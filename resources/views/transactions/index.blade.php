@@ -14,9 +14,9 @@
     @if (count($transactions) === 0)
         <p class="mt-6 text-neutral-400">there is no transactions yet</p>
     @else
-        <x-stacked-list class="mt-6">
+        <div class="mt-6 grid gap-4 grid-cols-3">
             @foreach ($transactions as $transaction)
-                <x-stacked-list-item>
+                <x-card>
                     <div class="flex flex-col">
                         <div class="font-semibold flex justify-between items-start">
                             {{ $transaction->category->name }}
@@ -24,19 +24,17 @@
                         <flux:button icon="ellipsis-horizontal" variant="ghost" size="sm"></flux:button>
                         <flux:menu>
                             <flux:menu.item :href="route('transactions.edit', $transaction)">Edit</flux:menu.item>
-                           
+                    
                             <form method="post" action={{ route('transactions.destroy', $transaction) }}>
                                 @method('delete')
                                 @csrf
                                 <flux:menu.item as="button" type="submit">Delete</flux:menu.item>
                             </form>
                         </flux:menu>
-
                     </flux:dropdown>
                         </div>
                         <span class="text-zinc-400 text-sm">{{ $transaction->date->toFormattedDateString() }}</span>
                     </div>
-
                     <p class="text-zinc-300 mt-2">{{ $transaction->description }}</p>
                     <p
                         @class([
@@ -47,17 +45,8 @@
                     >
                         {{ Number::currency($transaction->amount, in:"usd") }}
                     </p>
-
-                    {{-- <div class="inline-flex gap-2 items-center">
-                        <a href={{ route('transactions.edit', $transaction) }} class="text-sm">Edit</a>
-                        <form method="post" action={{ route('transactions.destroy', $transaction) }}>
-                            @method('delete')
-                            @csrf
-                            <button>Delete</button>
-                        </form>
-                    </div> --}}
-                </x-stacked-list-item>
+                </x-card>
             @endforeach
-        </x-stacked-list>
+        </div>
     @endif
 </x-layouts.app>

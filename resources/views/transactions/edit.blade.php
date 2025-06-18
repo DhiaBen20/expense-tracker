@@ -1,3 +1,10 @@
+@use('App\Models\Category')
+@use('Illuminate\Support\Facades\Auth')
+
+@php
+$categories = Category::select("id", "name")->where("user_id", Auth::id())->get();
+@endphp
+
 <x-layouts.app :title="__('Edit Transaction')">
     <flux:heading size="xl" level="1">Edit Transaction</flux:heading>
     <flux:text class="mt-2 mb-6 text-base">
@@ -13,7 +20,7 @@
         <flux:field>
             <flux:label>Category</flux:label>
             <flux:select name="category_id" placeholder="Choose category">
-                @foreach (\App\Models\Category::all() as $category)
+                @foreach ($categories as $category)
                     <flux:select.option
                         :value="$category->id"
                         :selected="old('category_id') ? old('category_id') == $category->id : $transaction->category_id == $category->id"
@@ -39,11 +46,9 @@
 
         <flux:field>
             <flux:label>Date</flux:label>
-            <flux:input type="date" name="date" :value="old('date') ?? $transaction->date" />
+            <flux:input type="date" name="date" :value="old('date') ?? $transaction->date->format('Y-m-d')" />
             <flux:error name="date" />
         </flux:field>
-
-        
 
         <flux:button type="subit" variant="primary">Save</flux:button>
     </form>
