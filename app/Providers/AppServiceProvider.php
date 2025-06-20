@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Models\Budget;
 use App\Models\Category;
 use App\Models\Transaction;
 use App\Models\User;
@@ -29,6 +30,10 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::define('manage-transaction', function (User $user, Transaction $transaction) {
             return $transaction->user_id == $user->id;
+        });
+
+        Gate::define('manage-budget', function (User $user, Budget $budget) {
+            return $budget->user_id == $user->id;
         });
     }
 }

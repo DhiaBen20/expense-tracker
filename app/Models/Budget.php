@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Budget extends Model
 {
+    public $timestamps = false;
+
     protected $fillable = ['amount', 'month', 'year', 'user_id'];
 
     /** @return BelongsTo<User, $this> */

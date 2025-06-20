@@ -29,12 +29,12 @@ class CategoryTest extends TestCase
         ]);
     }
 
-    public function test_creating_categories_requires_valid_data(): void 
+    public function test_creating_categories_requires_valid_data(): void
     {
         $this->actingAs(User::factory()->create());
 
         $this->post(route('categories.store'))
-            ->assertSessionHasErrors(["name"]);
+            ->assertSessionHasErrors(['name']);
     }
 
     public function test_user_can_see_list_of_categories(): void

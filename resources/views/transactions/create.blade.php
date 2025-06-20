@@ -49,8 +49,6 @@ $categories = Category::select("id", "name")->where("user_id", Auth::id())->get(
             <flux:error name="date" />
         </flux:field>
 
-        
-
         <flux:button type="subit" variant="primary">Save</flux:button>
     </form>
 </x-layouts.app>

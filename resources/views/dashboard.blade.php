@@ -1,6 +1,8 @@
 <x-layouts.app :title="__('Dashboard')">
     <x-dashboard-summary :$summary />
 
+    <x-budget-card :$budget :expenses="$summary->expenses" />
+
     <div class="mt-8">
         <h2 class="mb-3 font-bold text-xl">Recent Incomes</h2>
 

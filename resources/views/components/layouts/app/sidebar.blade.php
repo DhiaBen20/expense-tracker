@@ -11,6 +11,7 @@
                 <flux:navlist.item :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>{{ __('Dashboard') }}</flux:navlist.item>
                 <flux:navlist.item :href="route('categories.index')" :current="request()->routeIs('categories.index')" wire:navigate>{{ __('Categories') }}</flux:navlist.item>
                 <flux:navlist.item :href="route('transactions.index')" :current="request()->routeIs('transactions.index')" wire:navigate>{{ __('Transactions') }}</flux:navlist.item>
+                <flux:navlist.item :href="route('budgets.index')" :current="request()->routeIs('budgets.index')" wire:navigate>{{ __('Budgets') }}</flux:navlist.item>
             </flux:navlist>
 
             <flux:spacer />

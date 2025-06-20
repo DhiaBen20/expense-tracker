@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Budget;
 use App\Models\Transaction;
 use App\Models\User;
 use Illuminate\Contracts\View\View;
@@ -42,10 +43,16 @@ class DashbaordController extends Controller
                 return $transaction->amount > 0;
             });
 
+        $budget = Budget::whereBelongsTo(Auth::user())
+            ->where('year', now()->year)
+            ->where('month', now()->month)
+            ->first();
+
         return view('dashboard', [
             'summary' => $summary,
             'incomes' => $incomes,
             'expenses' => $expenses,
+            'budget' => $budget,
         ]);
     }
 }

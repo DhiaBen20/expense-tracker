@@ -28,15 +28,15 @@ class TransactionTest extends TestCase
         $this->assertDatabaseHas(Transaction::class, $transaction);
     }
 
-    public function test_creating_transactions_requires_valid_data(): void 
+    public function test_creating_transactions_requires_valid_data(): void
     {
         $this->actingAs(User::factory()->create());
 
         $this->post(route('transactions.store'))
-            ->assertSessionHasErrors(["description", "amount", "date", "category_id"]);
+            ->assertSessionHasErrors(['description', 'amount', 'date', 'category_id']);
 
-        $this->post(route('transactions.store'), ["category_id" => 55555])
-            ->assertSessionHasErrors("category_id");
+        $this->post(route('transactions.store'), ['category_id' => 55555])
+            ->assertSessionHasErrors('category_id');
     }
 
     public function test_user_can_see_list_of_transactions(): void
