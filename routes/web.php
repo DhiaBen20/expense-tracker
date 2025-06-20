@@ -3,6 +3,7 @@
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashbaordController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\TransactionController;
 use App\Livewire\Settings\Appearance;
 use App\Livewire\Settings\Password;
@@ -30,3 +31,5 @@ require __DIR__.'/auth.php';
 Route::resource('categories', CategoryController::class)->except('show')->middleware('auth');
 Route::resource('transactions', TransactionController::class)->except('show')->middleware('auth');
 Route::resource('budgets', BudgetController::class)->except(['show', 'destroy'])->middleware('auth');
+
+Route::post('export', ExportController::class)->middleware('auth');

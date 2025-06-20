@@ -14,7 +14,7 @@
     @if (count($transactions) === 0)
         <p class="mt-6 text-neutral-400">there is no transactions yet</p>
     @else
-        <div class="mt-6 grid gap-4 grid-cols-3">
+        <div class="mt-6 grid gap-4 sm:grid-cols-2 md:grid-cols-3">
             @foreach ($transactions as $transaction)
                 <x-card>
                     <div class="flex flex-col">

@@ -6,7 +6,7 @@
     $monthString = now()->month($budget->month)->format("F");
     $formattedBudget = Number::currency($budget->amount, in:'usd');
 
-    $expensesPercent = $expenses / $budget->amount;
+    $expensesPercent = -1 * ($expenses / $budget->amount);
     @endphp
 
     <div class="mt-8">

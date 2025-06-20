@@ -33,8 +33,8 @@ class DashbaordController extends Controller
             ->whereBetween('date', $currentMonthRange)
             ->first();
 
-        $incomesQuery = Transaction::whereColumn('amount', '>', '0')->whereBetween('date', $currentMonthRange)->limit(10);
-        $expensesQuery = Transaction::whereColumn('amount', '<', '0')->whereBetween('date', $currentMonthRange)->limit(10);
+        $incomesQuery = Transaction::where('amount', '>', 0)->whereBetween('date', $currentMonthRange)->limit(10);
+        $expensesQuery = Transaction::where('amount', '<', 0)->whereBetween('date', $currentMonthRange)->limit(10);
 
         [$incomes, $expenses] = $incomesQuery->union($expensesQuery->getQuery())
             ->orderBy('date', 'desc')

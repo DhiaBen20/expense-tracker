@@ -34,7 +34,7 @@ $months = [
 
         <flux:field>
             <flux:label>Year</flux:label>
-            <flux:input name="year" :value="old('year')" />
+            <flux:input type="number" name="year" :value="old('year') ?? now()->year" />
             <flux:error name="year" />
         </flux:field>
 
@@ -45,7 +45,7 @@ $months = [
                 @foreach($months as $num => $name)
                     <flux:select.option
                         :value="$num"
-                        :selected="old('month') == $num"
+                        :selected="old('month') ? old('month') == $num : now()->month == $num"
                     >
                         {{ $name }}
                     </flux:select.option>
